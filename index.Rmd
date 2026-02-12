@@ -1,6 +1,6 @@
 ---
-title: "PS270 Final Project"
-author: "Your Name Here"
+title: PS270 Final Project
+author: Betty Fox
 description: "My final project"
 output:
   distill::distill_article:
@@ -11,4 +11,11 @@ output:
 
 ## Project thoughts
 
-I am interested in exploring data related to...
+Basketball:
+I am interested in exploring data related to which WNBA teams get the most viewership and by which identity groups. Related to the topic of the WNBA which teams send the most players abroad to play during the off-season? Which countries are these players being sent to most often? What is the pay gap between NBA and WNBA players?
+
+Politics and Voting:
+I am interested in exploring data about where college students get their news. I am also interested if the way American voters vote in national elections is influenced by geographic location. 
+
+Family Structures: 
+Finally, I am curious if there is a correlation between geographic location in the US and rates of"non-traditional" family structures. I define "non-traditional" families that are not composed of a father and a mother. This interests me because I grew up with a single mom by choice therefore this topic is close to home. 
