@@ -116,7 +116,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.30/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["Data/NYC .csv","Data/wnba_attendance_alltime.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.30/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1551,7 +1551,68 @@ I am interested in exploring data related to which WNBA teams get the most viewe
 I am interested in exploring data about where college students get their news. I am also interested if the way American voters vote in national elections is influenced by geographic location.</p>
 <p>Family Structures:
 Finally, I am curious if there is a correlation between geographic location in the US and rates of”non-traditional” family structures. I define “non-traditional” families that are not composed of a father and a mother. This interests me because I grew up with a single mom by choice therefore this topic is close to home.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<h2 id="load-the-packages">Load the packages</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<h2 id="load-the-data">Load The Data</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"Data/wnba_attendance_alltime.csv"</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 6,160 × 8
+   Date   Opponent Segment Arena Location Attendance `Home Team`  Year
+   &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;
+ 1 23-Ma… Detroit… Regula… Phil… Atlanta…      11609 Atlanta Dr…  2008
+ 2 25-Ma… Los Ang… Regula… Phil… Atlanta…      11186 Atlanta Dr…  2008
+ 3 3-Jun… Minneso… Regula… Phil… Atlanta…       5844 Atlanta Dr…  2008
+ 4 6-Jun… Chicago… Regula… Phil… Atlanta…       7418 Atlanta Dr…  2008
+ 5 11-Ju… New Yor… Regula… Phil… Atlanta…       5936 Atlanta Dr…  2008
+ 6 13-Ju… Indiana… Regula… Phil… Atlanta…       8167 Atlanta Dr…  2008
+ 7 18-Ju… San Ant… Regula… Phil… Atlanta…       6225 Atlanta Dr…  2008
+ 8 22-Ju… Detroit… Regula… Phil… Atlanta…       7865 Atlanta Dr…  2008
+ 9 1-Jul… Phoenix… Regula… Phil… Atlanta…       9795 Atlanta Dr…  2008
+10 3-Jul… Houston… Regula… Phil… Atlanta…       7430 Atlanta Dr…  2008
+# ℹ 6,150 more rows</code></pre>
+</div>
+<h2 id="using-the-glimpse-function-to-check-that-my-data-is-loaded-and-can-be-viewed-easily">Using the glimpse function to check that my data is loaded and can be viewed easily</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>wnba_attendance_alltime</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"Data/wnba_attendance_alltime.csv"</span><span class='op'>)</span> </span>
+<span><span class='fu'><a href='https://pillar.r-lib.org/reference/glimpse.html'>glimpse</a></span><span class='op'>(</span><span class='va'>wnba_attendance_alltime</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>Rows: 6,160
+Columns: 8
+$ Date        &lt;chr&gt; &quot;23-May-08&quot;, &quot;25-May-08&quot;, &quot;3-Jun-08&quot;, &quot;6-Jun-08&quot;…
+$ Opponent    &lt;chr&gt; &quot;Detroit Shock&quot;, &quot;Los Angeles Sparks&quot;, &quot;Minnesot…
+$ Segment     &lt;chr&gt; &quot;Regular season&quot;, &quot;Regular season&quot;, &quot;Regular sea…
+$ Arena       &lt;chr&gt; &quot;Philips Arena&quot;, &quot;Philips Arena&quot;, &quot;Philips Arena…
+$ Location    &lt;chr&gt; &quot;Atlanta, GA&quot;, &quot;Atlanta, GA&quot;, &quot;Atlanta, GA&quot;, &quot;At…
+$ Attendance  &lt;dbl&gt; 11609, 11186, 5844, 7418, 5936, 8167, 6225, 7865…
+$ `Home Team` &lt;chr&gt; &quot;Atlanta Dream&quot;, &quot;Atlanta Dream&quot;, &quot;Atlanta Dream…
+$ Year        &lt;dbl&gt; 2008, 2008, 2008, 2008, 2008, 2008, 2008, 2008, …</code></pre>
+</div>
+<h2 id="using-the-head-function-to-see-the-first-six-rows-of-my-data">Using the head function to see the first six rows of my data</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>wnba_attendance_alltime</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"Data/wnba_attendance_alltime.csv"</span><span class='op'>)</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>wnba_attendance_alltime</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 6 × 8
+  Date    Opponent Segment Arena Location Attendance `Home Team`  Year
+  &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;
+1 23-May… Detroit… Regula… Phil… Atlanta…      11609 Atlanta Dr…  2008
+2 25-May… Los Ang… Regula… Phil… Atlanta…      11186 Atlanta Dr…  2008
+3 3-Jun-… Minneso… Regula… Phil… Atlanta…       5844 Atlanta Dr…  2008
+4 6-Jun-… Chicago… Regula… Phil… Atlanta…       7418 Atlanta Dr…  2008
+5 11-Jun… New Yor… Regula… Phil… Atlanta…       5936 Atlanta Dr…  2008
+6 13-Jun… Indiana… Regula… Phil… Atlanta…       8167 Atlanta Dr…  2008</code></pre>
+</div>
+<h2 id="proposal-paragraph">Proposal Paragraph</h2>
+<p>Does a WNBA’s team opponent influence the amount of people who attend games? I hypothesize that the team’s opponent will not influence the amount of people who attend games because the WNBA often has player versus player rivalries instead of team versus team rivalries. This has been seen more recently especially with the popularity of Caitlyn Clark, from Indiana Fever, and Sabrina Ionescu, from New York Liberty. In the dataset we can see that in 2019 Indiana Fever attendance was relatively low; the highest number of attendees were around 3,000 people. When Caitlyn Clark became more popular in 2024 the number of attendees rose to around 6,000 people. My data set includes information about WNBA attendance from 1994 to 2024 across all 23 teams that have been in operation throughout this twenty year period. My first explanatory variable of interest is the opponent which is measured by who the team was playing. The second explanatory variable is year which is measured by what year the game was played. This is informative because this will help me understand how attendance has increased and decreased over time because the WNBA has become more known. The outcome variable of interest is attendance which is measured by how many people attended each game. I do not know how this was measured in the dataset but my guess is it was measured by how many people purchased tickets. My hypothesis will be disproven if there is a higher amount of attendees in specific seasons for two teams who played against each other. My hypothesis will be proven if there are overall similarities between the means of attendance when certain teams play against each other.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

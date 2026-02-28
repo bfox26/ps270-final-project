@@ -19,3 +19,33 @@ I am interested in exploring data about where college students get their news. I
 
 Family Structures: 
 Finally, I am curious if there is a correlation between geographic location in the US and rates of"non-traditional" family structures. I define "non-traditional" families that are not composed of a father and a mother. This interests me because I grew up with a single mom by choice therefore this topic is close to home. 
+
+## Load the packages 
+
+```{r}
+library(tidyverse)
+```
+
+
+## Load The Data 
+
+```{r}
+read_csv("Data/wnba_attendance_alltime.csv")
+```
+## Using the glimpse function to check that my data is loaded and can be viewed easily 
+
+```{r}
+wnba_attendance_alltime <- read_csv("Data/wnba_attendance_alltime.csv") 
+glimpse(wnba_attendance_alltime)
+```
+## Using the head function to see the first six rows of my data 
+
+```{r}
+wnba_attendance_alltime <- read_csv("Data/wnba_attendance_alltime.csv") 
+  head(wnba_attendance_alltime)
+```
+## Proposal Paragraph  
+
+Does a WNBA’s team opponent influence the amount of people who attend games? I hypothesize that the team's opponent will not influence the amount of people who attend games because the WNBA often has player versus player rivalries instead of team versus team rivalries. This has been seen more recently especially with the popularity of Caitlyn Clark, from Indiana Fever, and Sabrina Ionescu, from New York Liberty. In the dataset we can see that in 2019 Indiana Fever attendance was relatively low; the highest number of attendees were around 3,000 people. When Caitlyn Clark became more popular in 2024 the number of attendees rose to around 6,000 people. My data set includes information about WNBA attendance from 1994 to 2024 across all 23 teams that have been in operation throughout this twenty year period. My first explanatory variable of interest is the opponent which is measured by who the team was playing. The second explanatory variable is year which is measured by what year the game was played. This is informative because this will help me understand how attendance has increased and decreased over time because the WNBA has become more known. The outcome variable of interest is attendance which is measured by how many people attended each game. I do not know how this was measured in the dataset but my guess is it was measured by how many people purchased tickets. My hypothesis will be disproven if there is a higher amount of attendees in specific seasons for two teams who played against each other. My hypothesis will be proven if there are overall similarities between the means of attendance when certain teams play against each other. 
+
+
