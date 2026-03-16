@@ -116,7 +116,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["archive.zip","Data/NYC .csv","Data/wnba_attendance_alltime.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.30/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js","wnba_attendance_alltime.csv"]}
+  {"type":"character","attributes":{},"value":["archive.zip","Data/All Game Attendance.csv","Data/NYC .csv","Data/wnba_attendance_alltime.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-6-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.30/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js","wnba_attendance_alltime.csv"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1551,6 +1551,8 @@ I am interested in exploring data related to which WNBA teams get the most viewe
 I am interested in exploring data about where college students get their news. I am also interested if the way American voters vote in national elections is influenced by geographic location.</p>
 <p>Family Structures:
 Finally, I am curious if there is a correlation between geographic location in the US and rates of”non-traditional” family structures. I define “non-traditional” families that are not composed of a father and a mother. This interests me because I grew up with a single mom by choice therefore this topic is close to home.</p>
+<h2 id="proposal-paragraph">Proposal Paragraph</h2>
+<p>Does a WNBA’s team opponent influence the amount of people who attend games? I hypothesize that the team’s opponent will not influence the amount of people who attend games because the WNBA often has player versus player rivalries instead of team versus team rivalries. This has been seen more recently especially with the popularity of Caitlyn Clark, from Indiana Fever, and Sabrina Ionescu, from New York Liberty. In the dataset we can see that in 2019 Indiana Fever attendance was relatively low; the highest number of attendees were around 3,000 people. When Caitlyn Clark became more popular in 2024 the number of attendees rose to around 6,000 people. My data set includes information about WNBA attendance from 1994 to 2024 across all 23 teams that have been in operation throughout this twenty year period. My first explanatory variable of interest is the opponent which is measured by who the team was playing. The second explanatory variable is year which is measured by what year the game was played. This is informative because this will help me understand how attendance has increased and decreased over time because the WNBA has become more known. The outcome variable of interest is attendance which is measured by how many people attended each game. I do not know how this was measured in the dataset but my guess is it was measured by how many people purchased tickets. My hypothesis will be disproven if there is a higher amount of attendees in specific seasons for two teams who played against each other. My hypothesis will be proven if there are overall similarities between the means of attendance when certain teams play against each other.</p>
 <h2 id="load-the-packages">Load the packages</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -1610,9 +1612,59 @@ $ Year        &lt;dbl&gt; 2008, 2008, 2008, 2008, 2008, 2008, 2008, 2008, …</c
 5 11-Jun… New Yor… Regula… Phil… Atlanta…       5936 Atlanta Dr…  2008
 6 13-Jun… Indiana… Regula… Phil… Atlanta…       8167 Atlanta Dr…  2008</code></pre>
 </div>
-<h2 id="proposal-paragraph">Proposal Paragraph</h2>
-<p>Does a WNBA’s team opponent influence the amount of people who attend games? I hypothesize that the team’s opponent will not influence the amount of people who attend games because the WNBA often has player versus player rivalries instead of team versus team rivalries. This has been seen more recently especially with the popularity of Caitlyn Clark, from Indiana Fever, and Sabrina Ionescu, from New York Liberty. In the dataset we can see that in 2019 Indiana Fever attendance was relatively low; the highest number of attendees were around 3,000 people. When Caitlyn Clark became more popular in 2024 the number of attendees rose to around 6,000 people. My data set includes information about WNBA attendance from 1994 to 2024 across all 23 teams that have been in operation throughout this twenty year period. My first explanatory variable of interest is the opponent which is measured by who the team was playing. The second explanatory variable is year which is measured by what year the game was played. This is informative because this will help me understand how attendance has increased and decreased over time because the WNBA has become more known. The outcome variable of interest is attendance which is measured by how many people attended each game. I do not know how this was measured in the dataset but my guess is it was measured by how many people purchased tickets. My hypothesis will be disproven if there is a higher amount of attendees in specific seasons for two teams who played against each other. My hypothesis will be proven if there are overall similarities between the means of attendance when certain teams play against each other.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<h2 id="loading-second-data-set">Loading Second Data Set</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>all_game_attendance</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"Data/All Game Attendance.csv"</span><span class='op'>)</span> </span>
+<span>  <span class='va'>all_game_attendance</span></span></code></pre>
+</div>
+<pre><code># A tibble: 6,525 × 13
+    ...1  Year `Day of Week` Month   Day `Time (ET)` `Game Type`   
+   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt; &lt;dbl&gt; &lt;time&gt;      &lt;chr&gt;         
+ 1     1  1997 Saturday      June     21 16:00       Regular season
+ 2     2  1997 Saturday      June     21 19:00       Regular season
+ 3     3  1997 Saturday      June     21 05:00       Regular season
+ 4     4  1997 Sunday        June     22 16:00       Regular season
+ 5     5  1997 Monday        June     23 03:00       Regular season
+ 6     6  1997 Monday        June     23 22:00       Regular season
+ 7     7  1997 Tuesday       June     24 04:00       Regular season
+ 8     8  1997 Wednesday     June     25 06:00       Regular season
+ 9     9  1997 Thursday      June     26 19:00       Regular season
+10    10  1997 Thursday      June     26 22:00       Regular season
+# ℹ 6,515 more rows
+# ℹ 6 more variables: `Home Team` &lt;chr&gt;, `Away Team` &lt;chr&gt;,
+#   Arena &lt;chr&gt;, City &lt;chr&gt;, State &lt;chr&gt;, Attendance &lt;dbl&gt;</code></pre>
+</div>
+<h2 id="first-visualization">First Visualization</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"Data/All Game Attendance.csv"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>`Game Type` <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/if_else.html'>if_else</a></span><span class='op'>(</span></span>
+<span>    <span class='va'>`Game Type`</span> <span class='op'>==</span> <span class='st'>"Second Round"</span>, <span class='st'>"Semifinals"</span>, <span class='va'>`Game Type`</span></span>
+<span>  <span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>`Game Type`</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>attendance_mean <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>Attendance</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>attendance_mean</span>,</span>
+<span>                       y <span class='op'>=</span> <span class='va'>`Game Type`</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span><span class='op'>(</span><span class='va'>`Game Type`</span>, <span class='va'>attendance_mean</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='va'>attendance_mean</span>, </span>
+<span>               fill <span class='op'>=</span> <span class='va'>`Game Type`</span><span class='op'>)</span>, stat <span class='op'>=</span> <span class='st'>"identity"</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_flip.html'>coord_flip</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span></span>
+<span>    axis.text.x <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>10</span>, angle <span class='op'>=</span> <span class='fl'>45</span>, hjust <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,</span>
+<span>    plot.margin <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>margin</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>10</span>,<span class='fl'>10</span>,<span class='fl'>10</span><span class='op'>)</span>,</span>
+<span>    axis.text.y <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>12</span><span class='op'>)</span>,</span>
+<span>    axis.title <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>14</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Average Attendance at WNBA Games from 1997 - 2025"</span>,</span>
+<span>       x <span class='op'>=</span> <span class='st'>"WNBA Game Type"</span>,</span>
+<span>       y <span class='op'>=</span> <span class='st'>"Average WNBA Game Attendance"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='cn'>NULL</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/identity.html'>identity</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-6-1.png" alt="" width="864" /></p>
+</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
