@@ -1639,26 +1639,44 @@ $ Year        &lt;dbl&gt; 2008, 2008, 2008, 2008, 2008, 2008, 2008, 2008, …</c
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"Data/All Game Attendance.csv"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>`Game Type` <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/if_else.html'>if_else</a></span><span class='op'>(</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>  `Game Type` <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/if_else.html'>if_else</a></span><span class='op'>(</span></span>
 <span>    <span class='va'>`Game Type`</span> <span class='op'>==</span> <span class='st'>"Second Round"</span>, <span class='st'>"Semifinals"</span>, <span class='va'>`Game Type`</span></span>
-<span>  <span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='op'>)</span>,</span>
+<span>    `Game Type new` <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span></span>
+<span>      <span class='va'>`Game Type`</span> <span class='op'>==</span> <span class='st'>"Semifinals"</span> <span class='op'>~</span> <span class='st'>"WNBA All Teams Finals (Top 4 Teams)"</span>,</span>
+<span>      <span class='va'>`Game Type`</span> <span class='op'>==</span> <span class='st'>"Second Round"</span> <span class='op'>~</span> <span class='st'>"Semifinals"</span>,</span>
+<span>      <span class='va'>`Game Type`</span> <span class='op'>==</span> <span class='st'>"First Round"</span> <span class='op'>~</span> <span class='st'>"WNBA All Teams Finals (Top 8 Teams)"</span>,</span>
+<span>      <span class='va'>`Game Type`</span> <span class='op'>==</span> <span class='st'>"Second Round"</span> <span class='op'>~</span> <span class='st'>"WNBA All Teams Finals (Top 4 Teams)"</span>,</span>
+<span>      <span class='va'>`Game Type`</span> <span class='op'>==</span> <span class='st'>"Finals"</span> <span class='op'>~</span> <span class='st'>"WNBA Finals (Top 2 Teams)"</span>,</span>
+<span>      <span class='va'>`Game Type`</span> <span class='op'>==</span> <span class='st'>"Eastern Conference Finals"</span> <span class='op'>~</span> <span class='st'>"Eastern Conference Finals"</span>,</span>
+<span>      <span class='va'>`Game Type`</span> <span class='op'>==</span> <span class='st'>"Western Conference Semifinals"</span> <span class='op'>~</span> <span class='st'>"Western Conference Semifinals"</span>,</span>
+<span>      <span class='va'>`Game Type`</span> <span class='op'>==</span> <span class='st'>"Regular season"</span> <span class='op'>~</span> <span class='st'>"Regular Season"</span>,</span>
+<span>      <span class='va'>`Game Type`</span> <span class='op'>==</span> <span class='st'>"Western Conference Finals"</span> <span class='op'>~</span> <span class='st'>"Western Conference Finals"</span>,</span>
+<span>      <span class='va'>`Game Type`</span> <span class='op'>==</span> <span class='st'>"Eastern Conference Semifinals"</span> <span class='op'>~</span> <span class='st'>"Eastern Conference Semifinals"</span>,</span>
+<span>      <span class='va'>`Game Type`</span> <span class='op'>==</span> <span class='st'>"All star"</span> <span class='op'>~</span> <span class='st'>"All WNBA Teams MVP Match-Ups (All Star),</span></span>
+<span><span class='st'>      TRUE ~ `Game Type`"</span></span>
+<span>    <span class='op'>)</span>,</span>
+<span>    .after <span class='op'>=</span> <span class='va'>`Game Type`</span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>`Game Type`</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>attendance_mean <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>Attendance</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>attendance_mean</span>,</span>
 <span>                       y <span class='op'>=</span> <span class='va'>`Game Type`</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span><span class='op'>(</span><span class='va'>`Game Type`</span>, <span class='va'>attendance_mean</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='va'>attendance_mean</span>, </span>
-<span>               fill <span class='op'>=</span> <span class='va'>`Game Type`</span><span class='op'>)</span>, stat <span class='op'>=</span> <span class='st'>"identity"</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span><span class='op'>(</span><span class='va'>`Game Type`</span>, <span class='va'>attendance_mean</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='va'>attendance_mean</span>,</span>
+<span>               fill <span class='op'>=</span> <span class='va'>`Game Type`</span><span class='op'>)</span>, stat <span class='op'>=</span> <span class='st'>"identity"</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_flip.html'>coord_flip</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span></span>
 <span>    axis.text.x <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>10</span>, angle <span class='op'>=</span> <span class='fl'>45</span>, hjust <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,</span>
 <span>    plot.margin <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>margin</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>10</span>,<span class='fl'>10</span>,<span class='fl'>10</span><span class='op'>)</span>,</span>
 <span>    axis.text.y <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>12</span><span class='op'>)</span>,</span>
 <span>    axis.title <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>14</span><span class='op'>)</span></span>
-<span>  <span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Average Attendance at WNBA Games from 1997 - 2025"</span>,</span>
 <span>       x <span class='op'>=</span> <span class='st'>"WNBA Game Type"</span>,</span>
 <span>       y <span class='op'>=</span> <span class='st'>"Average WNBA Game Attendance"</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='cn'>NULL</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://rdrr.io/r/base/identity.html'>identity</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
