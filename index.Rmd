@@ -61,26 +61,48 @@ all_game_attendance <- read_csv("Data/All Game Attendance.csv")
 
 ```{r fig.width=9, fig.height=4}
 read_csv("Data/All Game Attendance.csv") |>
-  mutate(`Game Type` = if_else(
+  mutate(
+  `Game Type` = if_else(
     `Game Type` == "Second Round", "Semifinals", `Game Type`
-  )) |>
+  ),
+    `Game Type new` = case_when(
+      `Game Type` == "Semifinals" ~ "WNBA All Teams Finals (Top 4 Teams)",
+      `Game Type` == "Second Round" ~ "Semifinals",
+      `Game Type` == "First Round" ~ "WNBA All Teams Finals (Top 8 Teams)",
+      `Game Type` == "Second Round" ~ "WNBA All Teams Finals (Top 4 Teams)",
+      `Game Type` == "Finals" ~ "WNBA Finals (Top 2 Teams)",
+      `Game Type` == "Eastern Conference Finals" ~ "Eastern Conference Finals",
+      `Game Type` == "Western Conference Semifinals" ~ "Western Conference Semifinals",
+      `Game Type` == "Regular season" ~ "Regular Season",
+      `Game Type` == "Western Conference Finals" ~ "Western Conference Finals",
+      `Game Type` == "Eastern Conference Semifinals" ~ "Eastern Conference Semifinals",
+      `Game Type` == "All star" ~ "All WNBA Teams MVP Match-Ups (All Star),
+      TRUE ~ `Game Type`"
+    ),
+    .after = `Game Type`
+  ) |>
   group_by(`Game Type`) |>
   summarize(attendance_mean = mean(Attendance)) |>
   ggplot(mapping = aes(x = attendance_mean,
                        y = `Game Type`)) +
-  geom_col(aes(x = reorder(`Game Type`, attendance_mean), y = attendance_mean, 
-               fill = `Game Type`), stat = "identity") + 
+  geom_col(aes(x = reorder(`Game Type`, attendance_mean), y = attendance_mean,
+               fill = `Game Type`), stat = "identity") +
   coord_flip() +
   theme(
     axis.text.x = element_text(size = 10, angle = 45, hjust = 1),
     plot.margin = margin(10,10,10,10),
     axis.text.y = element_text(size = 12),
     axis.title = element_text(size = 14)
-  ) + 
+  ) +
   labs(title = "Average Attendance at WNBA Games from 1997 - 2025",
        x = "WNBA Game Type",
        y = "Average WNBA Game Attendance") +
   theme_minimal() +
+  theme(legend.position = "none") +
   NULL |>
   identity()
 ```
+
+
+
+
